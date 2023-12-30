@@ -25,7 +25,7 @@ class Solution {
         //     }
         // }
         for (int num: visited.keySet()) {
-            if (!visited.get(num)) {
+            if (!visited.get(num) && !visited.containsKey(num + 1)) {
                 visited.put(num, true);
                 l = 1;
                 int x = num;
