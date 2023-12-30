@@ -5,17 +5,36 @@ class Solution {
         Set<Integer> table = new HashSet<>();
         int l = 0, result = 0;
         for (int x : nums) { table.add(x); visited.put(x, false);}
-        for (int i = 0; i < nums.length; i++) {
-            if (!visited.get(nums[i]) && table.contains(nums[i])) {
-                visited.put(nums[i], true);
+        // for (int i = 0; i < nums.length; i++) {
+        //     if (!visited.get(nums[i])) {
+        //         visited.put(nums[i], true);
+        //         l = 1;
+        //         int x = nums[i];
+        //         while (table.contains(x - 1) && !visited.get(x - 1)) {
+        //             visited.put(x - 1, true);
+        //             l++;
+        //             x--;
+        //         }
+        //         x = nums[i];
+        //         while (table.contains(x + 1) && !visited.get(x + 1)) {
+        //             visited.put(x + 1, true);
+        //             l++;
+        //             x++;
+        //         }
+        //         result = Math.max(result, l);
+        //     }
+        // }
+        for (int num: nums) {
+            if (!visited.get(num)) {
+                visited.put(num, true);
                 l = 1;
-                int x = nums[i];
+                int x = num;
                 while (table.contains(x - 1) && !visited.get(x - 1)) {
                     visited.put(x - 1, true);
                     l++;
                     x--;
                 }
-                x = nums[i];
+                x = num;
                 while (table.contains(x + 1) && !visited.get(x + 1)) {
                     visited.put(x + 1, true);
                     l++;
@@ -24,6 +43,6 @@ class Solution {
                 result = Math.max(result, l);
             }
         }
-                    return result;
+        return result;
     }
 }
