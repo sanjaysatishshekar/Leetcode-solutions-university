@@ -19,6 +19,7 @@ class Solution {
                 j--;
             }
         }
+        System.gc();
         return area;
     }
 }
