@@ -14,4 +14,24 @@ class Solution {
         }
         return result;
     }
+    
+    public int findMin(int[] nums) {
+        if (nums.length == 1) return nums[0]; 
+        if (nums.length == 2) return Math.min(nums[0], nums[1]);
+        int l = 0;
+        int r = nums.length - 1;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (nums[l] <= nums[mid] && nums[l] < nums[r]) {
+                return nums[l];
+            }
+            if (nums[mid] > nums[r]) {
+                l = mid + 1;
+            }
+            else {
+                r = mid;
+            }
+       } 
+       return nums[l];
+    }
 }
