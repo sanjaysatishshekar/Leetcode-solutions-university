@@ -1,18 +1,19 @@
 class Solution {
+    HashMap<Integer, Integer> m = new HashMap<>();
     public int rob(int[] nums) {
-        int n = nums.length;
-        int[] dp = new int[n + 1];
-        dp[0] = 0;
-        dp[1] = nums[0];
-        for (int i = 2; i <= n; i++) {
-            dp[i] = Math.max(dp[i-1], dp[i - 2] + nums[i - 1]);
-            // Condition is dp[i-1], dp[i - 2] + nums[i - 1]
-            // Because dp[i - 1] is the highest bounty till i - 1
-            // dp[i - 2] + nums[i - 1] if you are stealing the current house
+        return dp(nums.length - 1, nums);
+    }
+
+    private int dp(int i, int[] nums) {
+        if (i == 1)
+            return Math.max(nums[0], nums[1]);
+        if (i == 0)
+            return nums[0];
+        
+        if (!m.containsKey(i)) {
+            m.put(i, Math.max(dp(i - 1, nums), dp(i - 2, nums) + nums[i]));
         }
-        // System.out.println(Arrays.toString(dp));
-        return dp[n];
+        
+        return m.get(i);
     }
 }
-
-// 1 2 3 1
