@@ -1,11 +1,11 @@
 class Solution {
     public int firstUniqChar(String s) {
-        int[] table = new int[26];
+        HashMap<Character, Integer> table = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
-            table[s.charAt(i) - 'a']++;
+            table.put(s.charAt(i), table.getOrDefault(s.charAt(i), 0) + 1);
         }
         for (int i = 0; i < s.length(); i++) {
-            if (table[s.charAt(i) - 'a'] == 1)
+            if (table.get(s.charAt(i)) == 1)
                 return i;
         }
         return -1;
