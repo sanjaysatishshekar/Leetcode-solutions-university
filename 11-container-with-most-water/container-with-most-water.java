@@ -5,9 +5,10 @@ class Solution {
         int i = 0, j = n - 1;
         while (i < j) {
             result = Math.max(result, (j - i) * Math.min(height[i], height[j]));
-            if (height[i] < height[j])
+            int min = Math.min(height[i], height[j]);
+            while (i < j && height[i] <= min)
                 i++;
-            else
+            while (i < j && height[j] <= min)
                 j--;
         }
         return result;
