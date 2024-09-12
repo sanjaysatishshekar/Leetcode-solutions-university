@@ -11,11 +11,11 @@ class Solution {
             maxL[i + 1] = Math.max(maxL[i], height[i]);
         }
 
-        System.out.println(Arrays.toString(maxL));
+        // System.out.println(Arrays.toString(maxL));
         for (int i = n - 2; i >= 0; i--) {
             maxR[i] = Math.max(maxR[i + 1], height[i]);
         }
-        System.out.println(Arrays.toString(maxR));
+        // System.out.println(Arrays.toString(maxR));
         int result = 0;
         for (int i = 0; i < n; i++) {
             result += Math.max(0, Math.min(maxL[i], maxR[i]) - height[i]);
