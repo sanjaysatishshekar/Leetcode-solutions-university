@@ -1,34 +1,29 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        List<int[]> resultList = new ArrayList<>();
-        int[] tempInterval = newInterval;
-        for (int[] interval: intervals) {
-            // if it doesn't overlap
-            if (tempInterval[1] < interval[0] || 
-                tempInterval[0] > interval[1]) {
-                    
-                // figure out which is the earlier interval
-                if (tempInterval[0] < interval[0]) {
-                    resultList.add(tempInterval); 
-                    tempInterval = interval;
+        List<int[]> result = new ArrayList<>();
+        int[] temp = newInterval;
+        for (int[] i: intervals) {
+            // No overlap
+            // if ((i[0] < temp[0] && i[1] < temp[0]) || (temp[1] < i[0] && temp[1] < i[1])) {
+            if ((i[1] < temp[0]) || (temp[1] < i[0])) {
+                if (i[0] > temp[1]) {
+                    result.add(temp);
+                    temp = i;
                 }
                 else {
-                    resultList.add(interval);
+                    result.add(i);
                 }
             }
-            // if it overlaps
             else {
-                tempInterval[0] = Math.min(tempInterval[0], interval[0]);
-                tempInterval[1] = Math.max(tempInterval[1], interval[1]);
+                temp[0] = Math.min(temp[0], i[0]);
+                temp[1] = Math.max(temp[1], i[1]);
             }
         }
-        resultList.add(tempInterval);
-        int[][] result = new int[resultList.size()][2];
-        for (int i = 0; i < resultList.size(); i++) {
-            result[i] = resultList.get(i);
+        result.add(temp);
+        int[][] r = new int[result.size()][2];
+        for (int i = 0; i < result.size(); i++) {
+            r[i] = result.get(i);
         }
-        return result;
-
-        
+        return r;
     }
 }
