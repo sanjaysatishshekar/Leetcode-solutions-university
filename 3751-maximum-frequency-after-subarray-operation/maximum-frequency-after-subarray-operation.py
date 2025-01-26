@@ -14,8 +14,8 @@ class Solution:
                     current = 0
                 result = max(current, result)
             return result
-        for b in count:
-            print(kadane(b))
+        # for b in count:
+        #     print(kadane(b))
         result = max(kadane(b) for b in count)
         return count[k] + result
         
