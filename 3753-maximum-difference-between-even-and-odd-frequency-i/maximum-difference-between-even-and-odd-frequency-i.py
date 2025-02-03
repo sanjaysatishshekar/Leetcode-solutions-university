@@ -2,7 +2,7 @@ from collections import Counter
 class Solution:
     def maxDifference(self, s: str) -> int:
         c = Counter(s)
-        print(c)
+        # print(c)
         of, ef = -inf, inf
         for i in c:
             if c[i] % 2 == 0:
