@@ -13,15 +13,12 @@ class Solution {
         ListNode newHead = new ListNode(0);
         ListNode temp = newHead;
         while (list1 != null && list2 != null) {
-            int x = list1 != null ? list1.val : -1;
-            int y = list2 != null ? list2.val : -1;
-            if (x > y) {
-                temp.next = new ListNode(y);
-                list2 = list2.next;
-            }
-            else {
-                temp.next = new ListNode(x);
+            if (list1.val < list2.val) {
+                temp.next = new ListNode(list1.val);
                 list1 = list1.next;
+            } else {
+                temp.next = new ListNode(list2.val);
+                list2 = list2.next;
             }
             temp = temp.next;
         }
