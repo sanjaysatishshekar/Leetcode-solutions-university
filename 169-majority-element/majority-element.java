@@ -4,17 +4,15 @@ class Solution {
         int candidate = 0;
         int count = 0;
         for (int i = 0; i < n; i++) {
+            if (count == 0) {
+                candidate = nums[i];
+            }
             if (candidate == nums[i]) {
                 count++;
-            }
-            else {
+            } else {
                 count--;
-                if (count < 0) {
-                    candidate = nums[i];
-                    count = 0;
-                }
             }
         }
-        return candidate;        
+        return candidate;
     }
 }
