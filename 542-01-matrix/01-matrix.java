@@ -1,39 +1,36 @@
+// class State {
+//     int row, col, steps;
+//     State(int row, int col, int steps) {
+//         this.row = row;
+//         this.col = col;
+//         this.steps = steps;
+//     }
+// }
 class Solution {
     public int[][] updateMatrix(int[][] mat) {
         int m = mat.length;
         int n = mat[0].length;
-        int[][] dp = new int[m][n];
+        Queue<int[]> q = new LinkedList<>();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                dp[i][j] = mat[i][j];
+                if (mat[i][j] == 0)
+                    q.offer(new int[] { i, j });
+                else
+                    mat[i][j] = -1;
             }
         }
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (dp[i][j] == 0)
+        int[][] d = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
+        while (!q.isEmpty()) {
+            int[] temp = q.poll();
+            int r = temp[0], c = temp[1];
+            for (int i = 0; i < d.length; i++) {
+                int nr = r + d[i][0], nc = c + d[i][1];
+                if (nr < 0 || nr == m || nc < 0 || nc == n || mat[nr][nc] != -1)
                     continue;
-                int min = m * n;
-                if (i > 0)
-                    min = Math.min(min, dp[i - 1][j]);
-                if (j > 0)
-                    min = Math.min(min, dp[i][j - 1]);
-                dp[i][j] = min + 1;
+                mat[nr][nc] = mat[r][c] + 1;
+                q.offer(new int[] { nr, nc });
             }
         }
-        for (int i = m - 1; i >= 0; i--) {
-            for (int j = n - 1; j >= 0; j--) {
-                if (dp[i][j] == 0)
-                    continue;
-                int min = m * n;
-                if (i < m - 1)
-                    min = Math.min(min, dp[i + 1][j]);
-                if (j < n - 1)
-                    min = Math.min(min, dp[i][j + 1]);
-                dp[i][j] = Math.min(dp[i][j], min + 1);
-            }
-        }
-        return dp;
-        
+        return mat;
     }
 }
