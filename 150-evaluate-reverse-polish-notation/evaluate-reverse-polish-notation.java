@@ -1,32 +1,35 @@
 class Solution {
-    public int evalRPN(String[] tokens) {
-        Stack<Integer> stk = new Stack<>();
-        int a = 1, b = 1;
-        for (String s: tokens) {
-            if (s.equals("+")) {
-                a = stk.pop();
-                b = stk.pop();
-                stk.push(a + b);
-            }
-            else if (s.equals("-")) {
-                a = stk.pop();
-                b = stk.pop();
-                stk.push(b - a);
-            }
-            else if (s.equals("*")) {
-                a = stk.pop();
-                b = stk.pop();
-                stk.push(a * b);
-            }
-            else if (s.equals("/")) {
-                a = stk.pop();
-                b = stk.pop();
-                stk.push(b/a);
+    public  int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<>();
+       
+        for (String token : tokens) {
+            if (!checkSymbol(token)) {
+                stack.push(Integer.parseInt(token));
             }
             else {
-                stk.push(Integer.parseInt(s));
+                int b = stack.pop(), a = stack.pop();
+                stack.push(operate(a,b,token));
+                
             }
         }
-        return stk.pop();
+        
+        return stack.pop();
+    }
+    public int operate(int a, int b, String op) {
+        switch (op) {
+            case "+":
+                return (a + b);
+            case "-":
+                return (a - b);
+            case "*":
+                return (a * b);
+            case "/":
+                return (a / b);
+        }
+        return 0;
+    }
+
+    public  boolean checkSymbol(String token) {
+        return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/");
     }
 }
