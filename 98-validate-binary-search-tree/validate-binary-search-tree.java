@@ -35,19 +35,14 @@
 
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        return isValidBST(root, null, null);
+        return valid(root, Long.MIN_VALUE, Long.MAX_VALUE);        
     }
 
-    private boolean isValidBST(TreeNode node, Integer leftBound, Integer rightBound) {
-        if(node == null) {
-            return true;
-        }
+    private boolean valid(TreeNode node, long minimum, long maximum) {
+        if (node == null) return true;
 
-        if((leftBound == null || node.val > leftBound) &&
-            (rightBound == null || node.val < rightBound)) {
-            return isValidBST(node.left, leftBound, node.val) && isValidBST(node.right, node.val, rightBound);
-        }
+        if (!(minimum < node.val && node.val < maximum)) return false;
 
-        return false;
-    }
+        return valid(node.left, minimum, node.val) && valid(node.right, node.val, maximum);
+    }    
 }
