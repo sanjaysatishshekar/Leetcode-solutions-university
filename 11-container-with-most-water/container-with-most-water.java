@@ -5,8 +5,14 @@ class Solution {
         while (i < j) {
             int h = Math.min(height[i], height[j]);
             result = Math.max(result, (j - i) * h);
-            if (height[i] == h) i++;
-            else j--;
+            if (height[i] == h) {
+                while (i < j && height[i] <= h)
+                    i++;
+            }
+            else {
+            while (j < height.length && height[j] <= h)
+                    j--;
+            }
         }
         return result;
     }
