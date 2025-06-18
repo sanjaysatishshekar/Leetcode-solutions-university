@@ -1,46 +1,18 @@
 class Solution {
     public int longestConsecutive(int[] nums) {
-
-        Map<Integer, Boolean> visited = new HashMap<>();
-        // Set<Integer> table = new HashSet<>();
-        int l = 0, result = 0;
-        for (int x : nums) { visited.put(x, false);}
-        // for (int i = 0; i < nums.length; i++) {
-        //     if (!visited.get(nums[i])) {
-        //         visited.put(nums[i], true);
-        //         l = 1;
-        //         int x = nums[i];
-        //         while (table.contains(x - 1) && !visited.get(x - 1)) {
-        //             visited.put(x - 1, true);
-        //             l++;
-        //             x--;
-        //         }
-        //         x = nums[i];
-        //         while (table.contains(x + 1) && !visited.get(x + 1)) {
-        //             visited.put(x + 1, true);
-        //             l++;
-        //             x++;
-        //         }
-        //         result = Math.max(result, l);
-        //     }
-        // }
-        for (int num: visited.keySet()) {
-            if (!visited.get(num) && !visited.containsKey(num + 1)) {
-                visited.put(num, true);
-                l = 1;
-                int x = num;
-                while (visited.containsKey(x - 1) && !visited.get(x - 1)) {
-                    visited.put(x - 1, true);
-                    l++;
-                    x--;
+        Set<Integer> set = new HashSet<>();
+        for (int num: nums) set.add(num);
+        int result = 0;
+        
+        for (int num: set) {
+            if (!set.contains(num - 1)) {
+                int count = 1;
+                int currentNum = num;
+                while (set.contains(currentNum + 1)) {
+                    currentNum += 1;
+                    count += 1;
                 }
-                x = num;
-                while (visited.containsKey(x + 1) && !visited.get(x + 1)) {
-                    visited.put(x + 1, true);
-                    l++;
-                    x++;
-                }
-                result = Math.max(result, l);
+                result = Math.max(result, count);
             }
         }
         return result;
