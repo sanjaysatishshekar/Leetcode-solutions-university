@@ -1,23 +1,21 @@
 class Solution {
     public int countSubstrings(String s) {
-        int result = 0;
         int n = s.length();
-        for (int i = 0; i < n; i++) {
-            int left = i;
-            int right = i; 
-            while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
-                result += 1;
-                left -= 1;
-                right += 1;
-            }
-            left = i;
-            right = i + 1;
-            while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
-                result += 1;
-                left -= 1;
-                right += 1;
-            }
+        int result = 0;
+        for (int k = 0; k < n; k++) {
+            result += palindromes(s, k, k);
+            result += palindromes(s, k, k + 1);
         }
         return result;
+    }
+
+    private int palindromes(String s, int i, int j) {
+        int count = 0;
+        while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
+            count++;
+            i--;
+            j++;
+        }
+        return count;
     }
 }
