@@ -8,20 +8,20 @@ class Solution {
                     stringToAdd.add(stack.pop());
                 }
                 stack.pop();
-                int base = 1;
                 int k = 0;
+                int base = 1;
                 while (!stack.isEmpty() && Character.isDigit(stack.peek())) {
                     k = k + (stack.pop() - '0') * base;
                     base = base * 10;
                 }
-
                 while (k != 0) {
                     for (int j = stringToAdd.size() - 1; j >= 0; j--) {
                         stack.push(stringToAdd.get(j));
                     }
                     k--;
                 }
-            } else {
+            }
+            else {
                 stack.push(s.charAt(i));
             }
         }
