@@ -1,69 +1,66 @@
-class ListNode {
+class Node {
     int key;
     int val;
-    ListNode next;
-    ListNode prev;
+    Node prev;
+    Node next;
 
-    public ListNode(int key, int val) {
+    public Node(int key, int val) {
         this.key = key;
         this.val = val;
     }
 }
 
 class LRUCache {
+    Map<Integer, Node> dict;
+    Node head;
+    Node tail;
     int capacity;
-    Map<Integer, ListNode> dic;
-    ListNode head;
-    ListNode tail;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        dic = new HashMap<>();
-        head = new ListNode(-1, -1);
-        tail = new ListNode(-1, -1);
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
         head.next = tail;
         tail.prev = head;
+        dict = new HashMap<>();
     }
-
-    public int get(int key) {
-        if (!dic.containsKey(key)) {
-            return -1;
-        }
-
-        ListNode node = dic.get(key);
-        remove(node);
-        add(node);
-        return node.val;
-    }
-
-    public void put(int key, int value) {
-        if (dic.containsKey(key)) {
-            ListNode oldNode = dic.get(key);
-            remove(oldNode);
-        }
-
-        ListNode node = new ListNode(key, value);
-        dic.put(key, node);
-        add(node);
-
-        if (dic.size() > capacity) {
-            ListNode nodeToDelete = head.next;
-            remove(nodeToDelete);
-            dic.remove(nodeToDelete.key);
-        }
-    }
-
-    public void add(ListNode node) {
-        ListNode previousEnd = tail.prev;
-        previousEnd.next = node;
-        node.prev = previousEnd;
+    
+    private void add(Node node) {
+        Node previousNode = tail.prev;
+        previousNode.next = node;
+        node.prev = previousNode;
         node.next = tail;
         tail.prev = node;
     }
 
-    public void remove(ListNode node) {
-        node.prev.next = node.next;
+    private void remove(Node node) {
         node.next.prev = node.prev;
+        node.prev.next = node.next;
+    }
+
+    public int get(int key) {
+        if (!dict.containsKey(key)) {
+            return -1;
+        }
+        Node node = dict.get(key);
+        remove(node);
+        add(node);
+        return node.val;
+    }
+    
+    public void put(int key, int value) {
+        if (dict.containsKey(key)) {
+            Node oldNode = dict.get(key);
+            remove(oldNode);
+        }
+        Node newNode = new Node(key, value);
+        dict.put(key, newNode);
+        add(newNode);
+        if (dict.size() > capacity) {
+            Node nodeToDel = head.next; 
+            remove(nodeToDel); 
+            dict.remove(nodeToDel.key); 
+        }
     }
 }
 
