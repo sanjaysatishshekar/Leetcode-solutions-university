@@ -1,30 +1,36 @@
 class Solution {
     public String longestPalindrome(String s) {
-        String result = "";
-        int resultLength = 0;
         int n = s.length();
-        for (int i = 0; i < s.length(); i++) {
-            int left = i;
-            int right = i;
-            while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
-                if (right - left + 1 > resultLength) {
-                    resultLength = right - left + 1;
-                    result = s.substring(left, right + 1);
-                }
-                left -= 1;
-                right += 1;
+        int[] result = new int[2];
+        for (int i = 0; i < n; i++) {
+            int start = i;
+            int end = i;
+            int odd = expand(s, start, end);
+            if (odd > result[1] - result[0] + 1) {
+                int dist = odd / 2;
+                result[0] = i - dist;
+                result[1] = i + dist;
             }
-            
-            left = i;
-            right = i + 1;
-            while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
-                if (right - left + 1 > resultLength) {
-                    resultLength = right - left + 1;
-                    result = s.substring(left, right + 1);
-                }
-                left -= 1;
-                right += 1;
+            start = i;
+            end = i + 1;
+            int even = expand(s, start, end);
+            if (even > result[1] - result[0] + 1) {
+                int dist = (even / 2) - 1;
+                result[0] = i - dist;
+                result[1] = i + 1 + dist;
             }
+        }
+        return s.substring(result[0], result[1] + 1);
+    }
+
+    private int expand(String s, int i, int j) {
+        int result = 0;
+        while (i >= 0 && j < s.length() && s.charAt(i) == s.charAt(j)) {
+            if ((j - i + 1) > result) {
+                result = j - i + 1;
+            }
+            i--;
+            j++;
         }
         return result;
     }
