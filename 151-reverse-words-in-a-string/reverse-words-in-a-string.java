@@ -1,0 +1,14 @@
+class Solution {
+    public String reverseWords(String s) {
+        String[] words = s.strip().split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.length - 1; i >= 0; i--) {
+            if (words[i].length() > 0) {
+                sb.append(words[i]);
+                if (i != 0)
+                    sb.append(' ');
+            }
+        }
+        return sb.toString();
+    }
+}
