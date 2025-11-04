@@ -4,17 +4,27 @@ class Solution {
         int l = 0, r = n - 1;
         while (l < r) {
             int mid = l + (r - l) / 2;
-            boolean even = (r - mid) % 2 == 0; 
+            boolean halvesAreEven = (r - mid) % 2 == 0;
             if (nums[mid + 1] == nums[mid]) {
-                if (even) l = mid + 2;
-                else r = mid - 1;
+                if (halvesAreEven) {
+                    l = mid + 2;
+                }
+                else {
+                    r = mid - 1;
+                }
             }
             else if (nums[mid - 1] == nums[mid]) {
-                if (even) r = mid - 2;
-                else l = mid + 1;
+                if (halvesAreEven) {
+                    r = mid - 2; 
+                }
+                else {
+                    l = mid + 1;
+                }
             }
-            else return nums[mid];
+            else {
+                return nums[mid];
+            }
         }
-        return nums[l]; 
+        return nums[l];
     }
 }
