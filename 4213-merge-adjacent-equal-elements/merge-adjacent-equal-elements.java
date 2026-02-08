@@ -1,22 +1,23 @@
 class Solution {
     public List<Long> mergeAdjacent(int[] nums) {
-        List<Long> a = new ArrayList<>();
-        Stack<Long> stack = new Stack<>();
+        int n = nums.length;
+        long[] stack = new long[n];
+        int top = -1;
+
         for (int num: nums) {
-            if (stack.isEmpty()) {
-                stack.push((long) num);
-                continue;
+            long current = num;
+            while (top >= 0 && stack[top] == current) {
+                current += stack[top];
+                top--;
             }
-            long res = num;
-            while (!stack.isEmpty() && stack.peek() == res) {
-                res = (long) (stack.pop() + res);
-            }
-            stack.push(res);
+            stack[top + 1] = current;
+            top++;
         }
-        while (!stack.isEmpty()) {
-            a.add(stack.pop());
+
+        List<Long> result = new ArrayList<>(top + 1);
+        for (int i = 0; i <= top; i++) {
+            result.add(stack[i]);
         }
-        Collections.reverse(a);
-        return a;
+        return result;
     } 
 }
