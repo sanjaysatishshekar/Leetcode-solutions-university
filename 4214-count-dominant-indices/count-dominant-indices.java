@@ -2,17 +2,16 @@ class Solution {
     public int dominantIndices(int[] nums) {
         int n = nums.length;
         int result = 0;
-        for (int i = 0; i < n - 1; i++) {
-            int sum = 0;
-            for (int j = i + 1; j < n; j++) {
-                sum += nums[j];
+        double suffix = 0;
+        int elementToRight = 0;
+        for (int i = n - 1; i > -1; i--) {
+            if (elementToRight > 0) {
+                if (nums[i] > (suffix / elementToRight)) {
+                    result++;
+                }
             }
-            if (sum == 0) continue;
-            double avg = (double) sum / (n - i - 1);
-            if (nums[i] > avg) {
-                // System.out.println(nums[i] + " " + sum + " " + (n - i - 1) );
-                result++;
-            }
+            suffix += nums[i];
+            elementToRight++;
         }
         return result;
     }
