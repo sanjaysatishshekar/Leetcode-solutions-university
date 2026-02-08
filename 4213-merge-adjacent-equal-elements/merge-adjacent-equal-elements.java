@@ -7,17 +7,11 @@ class Solution {
                 stack.push((long) num);
                 continue;
             }
-            if (stack.peek() == num) {
-                long i = stack.pop();
-                long res = (long)(i + num);
-                while (!stack.isEmpty() && stack.peek() == res) {
-                    res = res + stack.pop();
-                }
-                stack.push(res);
+            long res = num;
+            while (!stack.isEmpty() && stack.peek() == res) {
+                res = (long) (stack.pop() + res);
             }
-            else {
-                stack.push((long)num);
-            }
+            stack.push(res);
         }
         while (!stack.isEmpty()) {
             a.add(stack.pop());
