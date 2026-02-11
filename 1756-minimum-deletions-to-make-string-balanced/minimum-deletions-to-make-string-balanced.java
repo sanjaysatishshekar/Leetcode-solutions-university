@@ -1,25 +1,19 @@
 class Solution {
     public int minimumDeletions(String s) {
-        int n = s.length();
-        int[] a = new int[n];
-        int[] b = new int[n];
-
-        int count = 0;
-        for (int i = 0; i < n; i++) {
-            b[i] = count;
-            if (s.charAt(i) == 'b') count++;
+        int res = 0;
+        int count = 0; // Tracks the number of 'b's seen so far
+        
+        for (char c : s.toCharArray()) {
+            if (c == 'b') {
+                count++;
+            } else if (count != 0) {
+                // Found an 'a' after 'b's.
+                // We need to delete one character to resolve this "ba" pair.
+                res++;
+                count--;
+            }
         }
-
-        count = 0;
-        for (int i = n - 1; i > -1; i--) {
-            a[i] = count;
-            if (s.charAt(i) == 'a') count++;
-        }
-
-        int result = n;
-        for (int i = 0; i < n; i++) {
-            result = Math.min(result, a[i] + b[i]);
-        }
-        return result;
+        
+        return res;
     }
 }
