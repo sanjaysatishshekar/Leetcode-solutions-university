@@ -8,8 +8,7 @@ class Solution {
             for (char c: word.toCharArray()) {
                 sum += weights[c - 'a'];
             }
-            int l = sum % 26;
-            result.append((char) (26 - l + 97 - 1));
+            result.append((char) ('z' - (sum % 26)));
         }
         return result.toString();
     }
