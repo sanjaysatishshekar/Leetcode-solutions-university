@@ -5,11 +5,14 @@ class Solution {
         int i = 0, j = n - 1;
         int result = 0;
         while (i <= j) {
-            result++; 
-            if (people[i] + people[j] <= limit)
+            if (people[i] + people[j] > limit) {
+                j--;
+            }
+            else {
                 i++;
-            j--;
-
+                j--;
+            } 
+            result++;
         }
         return result;
     }
