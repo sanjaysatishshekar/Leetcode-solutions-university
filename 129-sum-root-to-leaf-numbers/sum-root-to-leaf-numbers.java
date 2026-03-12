@@ -16,23 +16,17 @@
 class Solution {
     int total = 0;
     public int sumNumbers(TreeNode root) {
-        StringBuilder sb = new StringBuilder();
-        dfs(root, sb);
+        dfs(root, 0);
         return total;
     }
-    private void dfs(TreeNode node, StringBuilder sum) {
-        
-        if (node == null) return;
-        if (node.left == null && node.right == null) {
-            sum.append(node.val);
-            // System.out.println(node.val + " " + sum + " " + total);
-            total += Integer.parseInt(sum.toString());
-            sum.deleteCharAt(sum.length() - 1);
-            return;
+    private void dfs(TreeNode node, int sum) {
+        if (node != null) {
+            sum = sum * 10 + node.val;
+            if (node.left == null && node.right == null) {
+                total += sum;
+            }
+            dfs(node.left, sum);
+            dfs(node.right, sum);
         }
-        dfs(node.left, sum.append(node.val));
-        sum.deleteCharAt(sum.length() - 1);
-        dfs(node.right, sum.append(node.val));
-        sum.deleteCharAt(sum.length() - 1);
     }
 }
