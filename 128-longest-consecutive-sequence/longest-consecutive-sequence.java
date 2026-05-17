@@ -1,19 +1,25 @@
 class Solution {
     public int longestConsecutive(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
+        // Have a set will all unique nums
+        // iterate through nums 
+        // and find num that is smallest in it's sequence
+        // start counting the length of that sequence
+
         int n = nums.length;
-        HashSet<Integer> seen = new HashSet<>();
+
+        if (n == 0) return 0;
+        Set<Integer> table = new HashSet<>();
         for (int num: nums) {
-            seen.add(num);
+            table.add(num);
         }
         int longest = 1;
-        for (int num: seen) {
-            if (!seen.contains(num - 1)) {
-                int count = 1;
-                while (seen.contains(num + count)) {
-                    count++;
+        for (int num: table) {
+            if (!table.contains(num - 1)) {
+                int x = 1;
+                while (table.contains(num + x)) {
+                    x++;
                 }
-                longest = Math.max(longest, count);
+                longest = Math.max(longest, x);
             }
         }
         return longest;
