@@ -2,17 +2,16 @@ class Solution {
     public int lengthOfLongestSubstring(String s) {
         if (s == null || s.length() == 0) return 0;
         int n = s.length();
-        int left = 0;
-        int longest = 1;
-        int[] table = new int[128];
-        for (int right = 0; right < n; right++) {
-            char c = s.charAt(right);
+        int l = 0;
+        int[] table = new int[256];
+        int longest = 0;
+        for (int r = 0; r < n; r++) {
+            char c = s.charAt(r);
             table[c]++;
-            while (left <= right && table[c] >= 2) {
-                table[s.charAt(left)]--;
-                left++;
+            while (l <= r && table[c] > 1) {
+                table[s.charAt(l++)]--;
             }
-            longest = Math.max(longest, right - left + 1);
+            longest = Math.max(longest, r - l + 1);
         }
         return longest;
     }
