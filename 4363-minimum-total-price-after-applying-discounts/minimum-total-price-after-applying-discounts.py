@@ -5,11 +5,11 @@ class Solution:
         total = 0.00000
         p = len(prices)
         d = len(discounts)
-        for i in range(min(p, d)):
-            total += (prices[i] * (100 - discounts[i])) / 100
-        
-        if p > d:
-            for i in range(d, p):
+    
+        for i in range(p):
+            if i < d:
+                total += (prices[i] * (100 - discounts[i])) / 100
+            else:
                 total += prices[i]
         return total
         
