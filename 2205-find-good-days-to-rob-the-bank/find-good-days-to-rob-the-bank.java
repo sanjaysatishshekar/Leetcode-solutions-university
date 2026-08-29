@@ -15,7 +15,7 @@ class Solution {
                 left[i] = 0;
             }
         }
-        System.out.println(Arrays.toString(left));
+        // System.out.println(Arrays.toString(left));
 
         for (int i = n - 2; i > -1; i--) {
             if (security[i] <= security[i + 1]) 
@@ -24,7 +24,7 @@ class Solution {
                 right[i] = 0;
             }
         }
-        System.out.println(Arrays.toString(right));
+        // System.out.println(Arrays.toString(right));
 
         for (int i = 0; i < n; i++) {
             if (left[i] >= time && right[i] >= time) 
