@@ -1,21 +1,21 @@
 class Solution {
     public int minimumKeypresses(String s) {
-        Integer[] counts = new Integer[26];
-        Arrays.fill(counts, 0);
+        int[] counts = new int[26];
+        
         for (int i = 0; i < s.length(); i++) {
             counts[s.charAt(i) - 'a']++;
         }
-        int ans = 0;
-        Arrays.sort(counts, (a, b) -> b - a);
-        for (int i = 0;i < 26; i++) {
-            if (i < 9) 
-                ans += counts[i];
-            else if (i < 18) 
-                ans += 2 * counts[i];
+        int result = 0;
+        Arrays.sort(counts);
+        for (int i = 25; i > -1; i--) {
+            if (i > 16) 
+                result += counts[i];
+            else if (i > 7) 
+                result += 2 * counts[i];
             else
-                ans += 3 * counts[i]; 
+                result += 3 * counts[i]; 
         }
-        return ans;
+        return result;
 
     }
 }
