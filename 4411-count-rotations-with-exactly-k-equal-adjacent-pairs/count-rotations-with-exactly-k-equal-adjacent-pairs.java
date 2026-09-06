@@ -1,15 +1,28 @@
 class Solution {
     public int countRotations(String s, int k) {
-        StringBuilder sb = new StringBuilder(s);
+        int n = s.length();
+        if (n == 1) return k == 0 ? 1 : 0;
         int total = 0;
-        // total += (check(sb) == k ? 1 : 0);
-        for (int i = 0; i < s.length(); i++) {
-            total += (check(sb) == k ? 1 : 0);
-            // System.out.println(check(sb) + " " + sb);
-            StringBuilder rotated = rotate(sb);
-            sb = rotated;
+        for (int i = 0; i < n - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1))
+                total++;
         }
-        return total;
+
+        if (s.charAt(n - 1) == s.charAt(0))
+            total++;
+        
+        if (k == total) return n - total;
+
+        if (k == total - 1) return total;
+        return 0;
+        // StringBuilder sb = new StringBuilder(s);
+        // int total = 0;
+        // for (int i = 0; i < s.length(); i++) {
+        //     total += (check(sb) == k ? 1 : 0);
+        //     StringBuilder rotated = rotate(sb);
+        //     sb = rotated;
+        // }
+        // return total;
     }
 
     private int check(StringBuilder sb) {
